@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Girlfriend Day Hannyyii❤️</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      height: 100%;
+      background: linear-gradient(to bottom, #ff9a9e, #fecfef);
+      overflow: hidden;
+    }
+
+    .screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 100%;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .hidden { display: none; }
+
+    h1 {
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #fff;
+      line-height: 1.7;
+      margin: 15px 0;
+    }
+
+    button {
+      background: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-size: 1rem;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0px 6px 20px rgba(0,0,0,0.3);
+    }
+
+    button:hover {
+      background: #e63956;
+      transform: scale(1.05);
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      border-radius: 25px;
+      padding: 20px;
+      max-width: 400px;
+      box-shadow: 0px 6px 20px rgba(0,0,0,0.3);
+      margin: 20px auto;
+    }
+
+    .photo-frame {
+      border: 8px solid #fff;
+      border-radius: 20px;
+      padding: 5px;
+      background: rgba(255,255,255,0.2);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      max-width: 320px;
+      margin: 15px auto;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      border-radius: 15px;
+      display: block;
+    }
+
+    .heart {
+      color: red;
+      font-size: 2rem;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0; left: 0;
+      background: transparent;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .stars span {
+      position: absolute;
+      display: block;
+      width: 2px;
+      height: 2px;
+      background: white;
+      animation: twinkle 3s infinite;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stars"></div>
+
+  <!-- Halaman Awal -->
+  <div class="screen" id="welcome-screen">
+    <h1>For Hani Anggia Putri ❤️</h1>
+    <p>Aku punya sesuatu yang spesial untuk kamuuu...</p>
+    <button onclick="nextScreen()">Pencet sini der kalo mau lihat 🌸</button>
+  </div>
+
+  <!-- Halaman Ucapan -->
+  <div class="screen hidden" id="message-screen">
+    <div class="card" id="message-content"></div>
+    <button id="next-btn" onclick="nextMessage()">Lanjut ➝</button>
+  </div>
+
+  <!-- Musik -->
+  <audio id="bg-music" loop>
+    <source src="Gaze.mp3" type="audio/mp3">
+    Browsermu tidak mendukung audio.
+  </audio>
+
+  <script>
+    const messages = [
+      {
+        text: `
+          <h1>Happy Girlfriend Day ❤️</h1>
+          <div class="photo-frame">
+            <img src="Gambar1.png" alt="Foto Kita 1">
+          </div>
+          <p>Halooo sayang, Happy Girlfriend day yaaaa!!!
+          Oiyaaa ini, pertama kali nya tau aku ngerayain, langsung sama kamu, ANJAYYY!
+          Terimakasiii yaaa, udah hadir di hari-hari ku, i love you.</p>
+        `
+      },
+      {
+        text: `
+          <h1>You are special to me 🌸</h1>
+          <div class="photo-frame">
+            <img src="Gambar2.jpg" alt="Foto Kita 2">
+          </div>
+          <p>Akuuu, beruntung punya kamu!!!!
+          Kamu orang yang selalu membuat aku menjadi lebih baik. 
+          akuu ku cuman mau bilang, Aku bersyukur banget atas kehadiran kamuu dalam hidup ku, jir alay.</p>
+        `
+      },
+      {
+        text: `
+          <h1>I REALLY LOVE U❤️</h1>
+          <div class="photo-frame">
+            <img src="Gambar3.jpg" alt="Foto Kita 3">
+          </div>
+          <p>Poto nya cuman ini doang yang bagusss, hehehe...
+          SOOOO, ayok kita lebih banyakin foto foto random!!!</p>
+        `
+      },
+      {
+        text: `
+          <h1>Anything for you, AWWW💍</h1>
+          <div class="photo-frame">
+            <img src="Gambar4.jpg" alt="Foto Kita 4">
+          </div>
+          <p>Sekali lagi Happy Girlfriend Day, SAYANG!!!
+          Aku berharap bisa bareng sama kamu terusssss....</p>
+          <p class="heart">❤️❤️❤️</p>
+        `
+      }
+    ];
+
+    let currentMessage = 0;
+
+    function nextScreen() {
+      document.getElementById('welcome-screen').classList.add('hidden');
+      document.getElementById('message-screen').classList.remove('hidden');
+      document.getElementById('bg-music').play();
+      showMessage(0);
+      createStars();
+    }
+
+    function showMessage(index) {
+      document.getElementById('message-content').innerHTML = messages[index].text;
+    }
+
+    function nextMessage() {
+      currentMessage++;
+      if (currentMessage < messages.length) {
+        showMessage(currentMessage);
+      } else {
+        document.getElementById('next-btn').style.display = 'none';
+      }
+    }
+
+    function createStars() {
+      const starsContainer = document.querySelector('.stars');
+      for(let i = 0; i < 80; i++) {
+        const star = document.createElement('span');
+        star.style.top = Math.random() * window.innerHeight + 'px';
+        star.style.left = Math.random() * window.innerWidth + 'px';
+        star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        starsContainer.appendChild(star);
+      }
+    }
+  </script>
+</body>
+</html>
